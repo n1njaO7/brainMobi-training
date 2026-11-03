@@ -226,3 +226,22 @@ async function getUser(userId) {
 getUser(101)
     .then(console.log)
     .catch(console.error);
+
+//=========================================================================
+
+//5. Garbage Collection Basics
+let user1 = {
+    name: "Ashmit"
+};
+
+let user2 = user1;
+
+user1 = null;
+
+console.log(user2.name); // Ashmit
+
+user2 = null;
+
+// Now the object is eligible for garbage collection,
+// assuming no other references exist.
+

@@ -176,3 +176,53 @@ const user = {
 };
 
 console.log(registerUser(user));
+
+//==========================================================================
+
+//4. try...catch...finally
+async function getUser(userId) {
+
+    let connection = false;
+
+    try {
+        console.log("Connecting to database...");
+
+        connection = true;
+
+        if (!userId) {
+            throw new Error("User ID is required");
+        }
+
+        // Simulating database operation
+        const user = {
+            id: userId,
+            name: "Ashmit"
+        };
+
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        console.log("User fetched successfully");
+
+        return user;
+
+    } catch (error) {
+
+        console.error("Error:", error.message);
+
+        throw error;
+
+    } finally {
+
+        if (connection) {
+            console.log("Closing database connection...");
+        }
+
+        console.log("Operation completed");
+    }
+}
+
+getUser(101)
+    .then(console.log)
+    .catch(console.error);

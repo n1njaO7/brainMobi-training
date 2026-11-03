@@ -111,3 +111,68 @@ try {
     console.log(error.errors);
 }
 
+//===================================================================
+
+//3. throw and Custom Errors
+class AppError extends Error {
+    constructor(message, statusCode) {
+        super(message);
+
+        this.name = this.constructor.name;
+        this.statusCode = statusCode;
+    }
+}
+
+class ValidationError extends AppError {
+    constructor(message) {
+        super(message, 400);
+    }
+}
+
+class AuthenticationError extends AppError {
+    constructor(message) {
+        super(message, 401);
+    }
+}
+
+function registerUser(user) {
+
+    if (!user) {
+        throw new ValidationError("User data is required");
+    }
+
+    if (!user.name || !user.email || !user.password) {
+        throw new ValidationError("All fields are required");
+    }
+
+    if (!user.email.includes("@")) {
+        throw new ValidationError("Invalid email address");
+    }
+
+    if (user.password.length < 8) {
+        throw new ValidationError(
+            "Password must contain at least 8 characters"
+        );
+    }
+
+    if (user.role === "admin") {
+        throw new AuthenticationError(
+            "Admin registration is not allowed"
+        );
+    }
+
+    return {
+        message: "User registered successfully",
+        name: user.name,
+        email: user.email
+    };
+}
+
+const user = {
+    name: "Ashmit",
+    email: "ashmit@example.com",
+    password: "password123",
+    role: "user"
+};
+
+console.log(registerUser(user));

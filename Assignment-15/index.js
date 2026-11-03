@@ -54,3 +54,60 @@ console.log(calculateTotal(100, 5));
 fetch("http://localhost:5000/api/users")
     .then(response => response.json())
     .then(data => console.log(data));
+
+//======================================================================
+
+//2. JavaScript Error Types
+// 1. SyntaxError
+// Example: JSON.parse("{name: 'Ashmit'}");
+// Invalid JSON because property names and strings need double quotes.
+
+
+// 2. ReferenceError
+try {
+    console.log(userName);
+} catch (error) {
+    console.log(error.name);
+}
+
+
+// 3. TypeError
+try {
+    const user = null;
+    console.log(user.name);
+} catch (error) {
+    console.log(error.name);
+}
+
+
+// 4. RangeError
+try {
+    const number = 10;
+    number.toFixed(101);
+} catch (error) {
+    console.log(error.name);
+}
+
+
+// 5. URIError
+try {
+    decodeURIComponent("%");
+} catch (error) {
+    console.log(error.name);
+}
+
+
+// 6. AggregateError
+try {
+    throw new AggregateError(
+        [
+            new Error("Database connection failed"),
+            new Error("Email service failed")
+        ],
+        "Multiple services failed"
+    );
+} catch (error) {
+    console.log(error.name);
+    console.log(error.errors);
+}
+

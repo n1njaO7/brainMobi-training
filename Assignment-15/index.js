@@ -245,3 +245,34 @@ user2 = null;
 // Now the object is eligible for garbage collection,
 // assuming no other references exist.
 
+//=========================================================================
+
+//6. Memory Leaks
+const users = [];
+
+function addUser() {
+
+    const user = {
+        name: "Ashmit",
+        data: new Array(100000).fill("User Data")
+    };
+
+    users.push(user);
+
+    console.log("User added");
+}
+
+function clearUsers() {
+    users.length = 0;
+
+    console.log("User data cleared");
+}
+
+addUser();
+addUser();
+addUser();
+
+// All user objects remain referenced by the users array.
+
+// Clear references when they are no longer needed.
+clearUsers();

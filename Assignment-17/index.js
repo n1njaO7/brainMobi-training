@@ -50,44 +50,92 @@
 
 // //=====================================================
 
-//3. Pure Functions and Side Effects
-const order = {
-    id: 101,
-    price: 1000,
-    quantity: 2,
-    discount: 10
+// //3. Pure Functions and Side Effects
+// const order = {
+//     id: 101,
+//     price: 1000,
+//     quantity: 2,
+//     discount: 10
+// };
+
+// // Pure function
+// function calculateDiscountedPrice(order) {
+
+//     const subtotal = order.price * order.quantity;
+
+//     const discountAmount =
+//         subtotal * (order.discount / 100);
+
+//     return subtotal - discountAmount;
+// }
+
+// // Pure function
+// function calculateTax(amount, taxRate) {
+//     return amount * (taxRate / 100);
+// }
+
+// // Impure function
+// function saveOrder(order) {
+//     localStorage.setItem(
+//         "order",
+//         JSON.stringify(order)
+//     );
+// }
+
+// // Pure calculations
+// const finalPrice = calculateDiscountedPrice(order);
+// const tax = calculateTax(finalPrice, 18);
+
+// console.log("Price:", finalPrice); // 1800
+// console.log("Tax:", tax); // 324
+
+// // Side effect
+// saveOrder(order);
+
+// //=============================================================
+
+//4. Currying and Function Composition
+// Curried function
+const calculatePrice = taxRate => discount => price => {
+
+    const discountedPrice =
+        price - (price * discount / 100);
+
+    const finalPrice =
+        discountedPrice + (discountedPrice * taxRate / 100);
+
+    return finalPrice;
 };
 
-// Pure function
-function calculateDiscountedPrice(order) {
+const applyGST = calculatePrice(18);
 
-    const subtotal = order.price * order.quantity;
+const applyGSTAndDiscount = applyGST(10);
 
-    const discountAmount =
-        subtotal * (order.discount / 100);
+console.log(applyGSTAndDiscount(1000)); // 1062
 
-    return subtotal - discountAmount;
+//------------------------------------------------------------------------
+
+//Function Composition
+const trim = str => str.trim();
+
+const lowercase = str => str.toLowerCase();
+
+const addDomain = email => `${email}@example.com`;
+
+function compose(...functions) {
+    return function (value) {
+        return functions.reduceRight(
+            (result, fn) => fn(result),
+            value
+        );
+    };
 }
 
-// Pure function
-function calculateTax(amount, taxRate) {
-    return amount * (taxRate / 100);
-}
+const createEmail = compose(
+    addDomain,
+    lowercase,
+    trim
+);
 
-// Impure function
-function saveOrder(order) {
-    localStorage.setItem(
-        "order",
-        JSON.stringify(order)
-    );
-}
-
-// Pure calculations
-const finalPrice = calculateDiscountedPrice(order);
-const tax = calculateTax(finalPrice, 18);
-
-console.log("Price:", finalPrice); // 1800
-console.log("Tax:", tax); // 324
-
-// Side effect
-saveOrder(order);
+console.log(createEmail("  ASHMIT  "));
+// ashmit@example.com

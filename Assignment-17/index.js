@@ -142,30 +142,59 @@
 
 // //=================================================================
 
-//5. Generators and Iterators
-function* userGenerator(users) {
+// //5. Generators and Iterators
+// function* userGenerator(users) {
 
-    for (const user of users) {
+//     for (const user of users) {
 
-        if (!user.active) {
-            continue;
-        }
+//         if (!user.active) {
+//             continue;
+//         }
 
-        yield {
-            id: user.id,
-            name: user.name
-        };
-    }
-}
+//         yield {
+//             id: user.id,
+//             name: user.name
+//         };
+//     }
+// }
 
-const users = [
-    { id: 1, name: "Ashmit", active: true },
-    { id: 2, name: "Rahul", active: false },
-    { id: 3, name: "Aman", active: true }
-];
+// const users = [
+//     { id: 1, name: "Ashmit", active: true },
+//     { id: 2, name: "Rahul", active: false },
+//     { id: 3, name: "Aman", active: true }
+// ];
 
-const generator = userGenerator(users);
+// const generator = userGenerator(users);
 
-console.log(generator.next());  //{ value: { id: 1, name: "Ashmit" }, done: false }
-console.log(generator.next());  //{ value: { id: 3, name: "Aman" }, done: false }
-console.log(generator.next());  //{ value: undefined, done: true }
+// console.log(generator.next());  //{ value: { id: 1, name: "Ashmit" }, done: false }
+// console.log(generator.next());  //{ value: { id: 3, name: "Aman" }, done: false }
+// console.log(generator.next());  //{ value: undefined, done: true }
+
+// //=====================================================================================
+
+//6. Regular Expressions (RegEx)
+const user = {
+    name: "Ashmit Srivastava",
+    email: "ashmit@example.com",
+    phone: "9876543210",
+    password: "Ashmit@123"
+};
+
+// Name validation
+const nameRegex = /^[A-Za-z ]{2,50}$/;
+
+// Email validation (basic format check)
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Indian mobile number validation
+const phoneRegex = /^[6-9]\d{9}$/;
+
+// Password validation
+const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+console.log(nameRegex.test(user.name));         // true
+console.log(emailRegex.test(user.email));       // true
+console.log(phoneRegex.test(user.phone));       // true
+console.log(passwordRegex.test(user.password)); // true
+

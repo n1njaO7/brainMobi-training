@@ -172,29 +172,80 @@
 
 // //=====================================================================================
 
-//6. Regular Expressions (RegEx)
-const user = {
-    name: "Ashmit Srivastava",
-    email: "ashmit@example.com",
-    phone: "9876543210",
-    password: "Ashmit@123"
-};
+// //6. Regular Expressions (RegEx)
+// const user = {
+//     name: "Ashmit Srivastava",
+//     email: "ashmit@example.com",
+//     phone: "9876543210",
+//     password: "Ashmit@123"
+// };
 
-// Name validation
-const nameRegex = /^[A-Za-z ]{2,50}$/;
+// // Name validation
+// const nameRegex = /^[A-Za-z ]{2,50}$/;
 
-// Email validation (basic format check)
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// // Email validation (basic format check)
+// const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Indian mobile number validation
-const phoneRegex = /^[6-9]\d{9}$/;
+// // Indian mobile number validation
+// const phoneRegex = /^[6-9]\d{9}$/;
 
-// Password validation
-const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+// // Password validation
+// const passwordRegex =
+//     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-console.log(nameRegex.test(user.name));         // true
-console.log(emailRegex.test(user.email));       // true
-console.log(phoneRegex.test(user.phone));       // true
-console.log(passwordRegex.test(user.password)); // true
+// console.log(nameRegex.test(user.name));         // true
+// console.log(emailRegex.test(user.email));       // true
+// console.log(phoneRegex.test(user.phone));       // true
+// console.log(passwordRegex.test(user.password)); // true
 
+// //=================================================================================
+
+//7. JavaScript Performance Basics
+const customers = [
+    { id: 1, name: "Ashmit", city: "Varanasi" },
+    { id: 2, name: "Rahul", city: "Delhi" },
+    { id: 3, name: "Aman", city: "Mumbai" },
+    { id: 4, name: "Rohit", city: "Varanasi" }
+];
+
+// 1. Efficient filtering
+function searchCustomers(customers, keyword) {
+
+    const search = keyword.toLowerCase();
+
+    return customers.filter(customer =>
+        customer.name.toLowerCase().includes(search) ||
+        customer.city.toLowerCase().includes(search)
+    );
+}
+
+// 2. Memoization
+function memoize(fn) {
+
+    const cache = new Map();
+
+    return function (input) {
+
+        if (cache.has(input)) {
+            console.log("Cache hit");
+            return cache.get(input);
+        }
+
+        const result = fn(input);
+
+        cache.set(input, result);
+
+        return result;
+    };
+}
+
+const optimizedSearch = memoize(keyword =>
+    searchCustomers(customers, keyword)
+);
+
+console.log(optimizedSearch("ash"));
+//[ { id: 1, name: 'Ashmit', city: 'Varanasi' } ]
+
+console.log(optimizedSearch("ash")); 
+// Cache hit
+//[ { id: 1, name: 'Ashmit', city: 'Varanasi' } ]

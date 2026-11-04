@@ -94,48 +94,78 @@
 
 // //=============================================================
 
-//4. Currying and Function Composition
-// Curried function
-const calculatePrice = taxRate => discount => price => {
+// //4. Currying and Function Composition
+// // Curried function
+// const calculatePrice = taxRate => discount => price => {
 
-    const discountedPrice =
-        price - (price * discount / 100);
+//     const discountedPrice =
+//         price - (price * discount / 100);
 
-    const finalPrice =
-        discountedPrice + (discountedPrice * taxRate / 100);
+//     const finalPrice =
+//         discountedPrice + (discountedPrice * taxRate / 100);
 
-    return finalPrice;
-};
+//     return finalPrice;
+// };
 
-const applyGST = calculatePrice(18);
+// const applyGST = calculatePrice(18);
 
-const applyGSTAndDiscount = applyGST(10);
+// const applyGSTAndDiscount = applyGST(10);
 
-console.log(applyGSTAndDiscount(1000)); // 1062
+// console.log(applyGSTAndDiscount(1000)); // 1062
 
-//------------------------------------------------------------------------
+// //------------------------------------------------------------------------
 
-//Function Composition
-const trim = str => str.trim();
+// //Function Composition
+// const trim = str => str.trim();
 
-const lowercase = str => str.toLowerCase();
+// const lowercase = str => str.toLowerCase();
 
-const addDomain = email => `${email}@example.com`;
+// const addDomain = email => `${email}@example.com`;
 
-function compose(...functions) {
-    return function (value) {
-        return functions.reduceRight(
-            (result, fn) => fn(result),
-            value
-        );
-    };
+// function compose(...functions) {
+//     return function (value) {
+//         return functions.reduceRight(
+//             (result, fn) => fn(result),
+//             value
+//         );
+//     };
+// }
+
+// const createEmail = compose(
+//     addDomain,
+//     lowercase,
+//     trim
+// );
+
+// console.log(createEmail("  ASHMIT  "));
+// // ashmit@example.com
+
+// //=================================================================
+
+//5. Generators and Iterators
+function* userGenerator(users) {
+
+    for (const user of users) {
+
+        if (!user.active) {
+            continue;
+        }
+
+        yield {
+            id: user.id,
+            name: user.name
+        };
+    }
 }
 
-const createEmail = compose(
-    addDomain,
-    lowercase,
-    trim
-);
+const users = [
+    { id: 1, name: "Ashmit", active: true },
+    { id: 2, name: "Rahul", active: false },
+    { id: 3, name: "Aman", active: true }
+];
 
-console.log(createEmail("  ASHMIT  "));
-// ashmit@example.com
+const generator = userGenerator(users);
+
+console.log(generator.next());  //{ value: { id: 1, name: "Ashmit" }, done: false }
+console.log(generator.next());  //{ value: { id: 3, name: "Aman" }, done: false }
+console.log(generator.next());  //{ value: undefined, done: true }

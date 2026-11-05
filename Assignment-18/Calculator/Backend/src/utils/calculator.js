@@ -94,4 +94,4 @@ function calculateExpression(expression) {
     return Number(result.toPrecision(12))
 }
 
-export default calculateExpression
+module.exports = calculateExpression;

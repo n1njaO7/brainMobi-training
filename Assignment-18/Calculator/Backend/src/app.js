@@ -6,7 +6,6 @@ app.use(express.json());
 
 app.get("/",(req,res)=>{
     res.json({
-        status : 200,
         message: "Calculator API is running"
     })
 })

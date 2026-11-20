@@ -8,23 +8,37 @@
 // console.log("Sum:", a + b);
 
 
-console.log("Hello Node.js");
+// console.log("Hello Node.js");
 
-// Global object
-global.appName = "My Backend Application";
+// // Global object
+// global.appName = "My Backend Application";
 
-console.log(global.appName);
+// console.log(global.appName);
 
-// Console global
-console.log("Application started");
+// // Console global
+// console.log("Application started");
 
-// Timer global
-setTimeout(() => {
-    console.log("Executed after 2 seconds");
-}, 2000);
+// // Timer global
+// setTimeout(() => {
+//     console.log("Executed after 2 seconds");
+// }, 2000);
 
-// Buffer global
-const data = Buffer.from("Hello");
+// // Buffer global
+// const data = Buffer.from("Hello");
 
-console.log(data);
-console.log(data.toString());
+// console.log(data);
+// console.log(data.toString());
+
+
+// const path = require('path');
+// const express = require('express');
+// const app = express();
+
+// console.log(__dirname);   
+// console.log(__filename);   
+// console.log(process.cwd()); 
+
+
+const path = require("path");
+const filePath = path.join(__dirname, "uploads", "profile.jpg");
+console.log(filePath);

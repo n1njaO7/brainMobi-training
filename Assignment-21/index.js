@@ -1,47 +1,47 @@
-//Call Stack
+// Call Stack
 
-// function first() {
-//     console.log("First function");
-// }
+function first() {
+    console.log("First function");
+}
 
-// function second() {
-//     console.log("Second function");
-// }
+function second() {
+    console.log("Second function");
+}
 
-// first();
-// second();
+first();
+second();
 
-// function first() {
-//     console.log("Inside first");
+function first() {
+    console.log("Inside first");
 
-//     second();
-// }
+    second();
+}
 
-// function second() {
-//     console.log("Inside second");
+function second() {
+    console.log("Inside second");
 
-//     third();
-// }
+    third();
+}
 
-// function third() {
-//     console.log("Inside third");
-// }
+function third() {
+    console.log("Inside third");
+}
 
-// first();
+first();
 
-// function multiply(a, b) {
-//     return a * b;
-// }
+function multiply(a, b) {
+    return a * b;
+}
 
-// function calculate() {
-//     const result = multiply(5, 10);
+function calculate() {
+    const result = multiply(5, 10);
 
-//     console.log(result);
-// }
+    console.log(result);
+}
 
-// calculate();
+calculate();
 
-// //===========================================
+//===========================================
 
 //Callback Queue
 
@@ -53,7 +53,6 @@ setTimeout(() => {
 }, 0);
 
 console.log("End");
-
 
 //Multiple callbacks
 console.log("Start");
@@ -68,8 +67,7 @@ setTimeout(() => {
 
 console.log("End");
 
-
-// Synchronous code delays callbacks
+//Synchronous code delays callbacks
 console.log("Start");
 
 setTimeout(() => {
@@ -84,5 +82,55 @@ while (Date.now() - start < 2000) {
 
 console.log("End");
 
+// =================================================
+
+//Microtask Queue
+
+// Promise and setTimeout()
+console.log("Start");
+
+setTimeout(() => {
+    console.log("setTimeout callback");
+}, 0);
+
+Promise.resolve().then(() => {
+    console.log("Promise callback");
+});
+
+console.log("End");
+
+console.log("Start");
 
 
+//Multiple microtasks
+Promise.resolve().then(() => {
+    console.log("Promise 1");
+
+    Promise.resolve().then(() => {
+        console.log("Nested Promise");
+    });
+});
+
+Promise.resolve().then(() => {
+    console.log("Promise 2");
+});
+
+console.log("End");
+
+
+//Microtasks created inside microtasks
+console.log("Start");
+
+Promise.resolve().then(() => {
+    console.log("Promise 1");
+
+    Promise.resolve().then(() => {
+        console.log("Nested Promise");
+    });
+});
+
+Promise.resolve().then(() => {
+    console.log("Promise 2");
+});
+
+console.log("End");

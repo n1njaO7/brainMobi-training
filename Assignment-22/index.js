@@ -1,32 +1,64 @@
-//setTimeout()
+// //setTimeout()
+// console.log("Start");
+
+// setTimeout(() => {
+//     console.log("Executed after 2 seconds");
+// }, 2000);
+
+// console.log("End");
+
+// // 1. Zero delay
+// setTimeout(() => {
+//     console.log("Timer");
+// }, 0);
+
+// console.log("Hello");
+
+// // 2. Passing arguments
+// function greet(name) {
+//     console.log(`Hello ${name}`);
+// }
+
+// setTimeout(greet, 1000, "Ashmit");
+
+// //3. Clearing a timer
+// const timer = setTimeout(() => {
+//     console.log("Reminder: Complete your task!");
+// }, 3000);
+
+// setTimeout(() => {
+//     clearTimeout(timer);
+//     console.log("Reminder cancelled!");
+// }, 1000);
+
+// //=======================================================
+
+//setImmediate()
 console.log("Start");
 
-setTimeout(() => {
-    console.log("Executed after 2 seconds");
-}, 2000);
+setImmediate(() => {
+    console.log("Immediate callback");
+});
 
 console.log("End");
 
-// 1. Zero delay
+//setImmediate() vs setTimeout()
 setTimeout(() => {
-    console.log("Timer");
+    console.log("Timeout");
 }, 0);
 
-console.log("Hello");
+setImmediate(() => {
+    console.log("Immediate");
+});
 
-// 2. Passing arguments
-function greet(name) {
-    console.log(`Hello ${name}`);
-}
+const fs = require("fs");
 
-setTimeout(greet, 1000, "Ashmit");
+fs.readFile(__filename, () => {
+    setTimeout(() => {
+        console.log("Timeout");
+    }, 0);
 
-//3. Clearing a timer
-const timer = setTimeout(() => {
-    console.log("Reminder: Complete your task!");
-}, 3000);
-
-setTimeout(() => {
-    clearTimeout(timer);
-    console.log("Reminder cancelled!");
-}, 1000);
+    setImmediate(() => {
+        console.log("Immediate");
+    });
+});

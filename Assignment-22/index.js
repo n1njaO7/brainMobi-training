@@ -1,137 +1,137 @@
-// //setTimeout()
-// console.log("Start");
+//setTimeout()
+console.log("Start");
 
-// setTimeout(() => {
-//     console.log("Executed after 2 seconds");
-// }, 2000);
+setTimeout(() => {
+    console.log("Executed after 2 seconds");
+}, 2000);
 
-// console.log("End");
+console.log("End");
 
-// // 1. Zero delay
-// setTimeout(() => {
-//     console.log("Timer");
-// }, 0);
+// 1. Zero delay
+setTimeout(() => {
+    console.log("Timer");
+}, 0);
 
-// console.log("Hello");
+console.log("Hello");
 
-// // 2. Passing arguments
-// function greet(name) {
-//     console.log(`Hello ${name}`);
-// }
+// 2. Passing arguments
+function greet(name) {
+    console.log(`Hello ${name}`);
+}
 
-// setTimeout(greet, 1000, "Ashmit");
+setTimeout(greet, 1000, "Ashmit");
 
-// //3. Clearing a timer
-// const timer = setTimeout(() => {
-//     console.log("Reminder: Complete your task!");
-// }, 3000);
+//3. Clearing a timer
+const timer = setTimeout(() => {
+    console.log("Reminder: Complete your task!");
+}, 3000);
 
-// setTimeout(() => {
-//     clearTimeout(timer);
-//     console.log("Reminder cancelled!");
-// }, 1000);
+setTimeout(() => {
+    clearTimeout(timer);
+    console.log("Reminder cancelled!");
+}, 1000);
 
-// //=======================================================
+//=======================================================
 
-// //setImmediate()
-// console.log("Start");
+//setImmediate()
+console.log("Start");
 
-// setImmediate(() => {
-//     console.log("Immediate callback");
-// });
+setImmediate(() => {
+    console.log("Immediate callback");
+});
 
-// console.log("End");
+console.log("End");
 
-// //setImmediate() vs setTimeout()
-// setTimeout(() => {
-//     console.log("Timeout");
-// }, 0);
+//setImmediate() vs setTimeout()
+setTimeout(() => {
+    console.log("Timeout");
+}, 0);
 
-// setImmediate(() => {
-//     console.log("Immediate");
-// });
+setImmediate(() => {
+    console.log("Immediate");
+});
 
-// const fs = require("fs");
+const fs = require("fs");
 
-// fs.readFile(__filename, () => {
-//     setTimeout(() => {
-//         console.log("Timeout");
-//     }, 0);
+fs.readFile(__filename, () => {
+    setTimeout(() => {
+        console.log("Timeout");
+    }, 0);
 
-//     setImmediate(() => {
-//         console.log("Immediate");
-//     });
-// });
+    setImmediate(() => {
+        console.log("Immediate");
+    });
+});
 
-// //=========================================================
+//=========================================================
 
-// //process.nextTick()
-// console.log("Start");
+//process.nextTick()
+console.log("Start");
 
-// process.nextTick(() => {
-//     console.log("Next Tick");
-// });
+process.nextTick(() => {
+    console.log("Next Tick");
+});
 
-// console.log("End");
+console.log("End");
 
-// function recursiveTask() {
-//     process.nextTick(() => {
-//         console.log("Next tick");
-//         recursiveTask();
-//     });
-// }
-// recursiveTask();
+function recursiveTask() {
+    process.nextTick(() => {
+        console.log("Next tick");
+        recursiveTask();
+    });
+}
+recursiveTask();
 
 
-// //=================================================================
+//=================================================================
 
-// //Error-first callback
-// const fs = require("fs");
+//Error-first callback
+const fs = require("fs");
 
-// fs.readFile("data.txt", "utf8", (err, data) => {
+fs.readFile("data.txt", "utf8", (err, data) => {
 
-//     if (err) {
-//         console.error("Error:", err.message);
-//         return;
-//     }
+    if (err) {
+        console.error("Error:", err.message);
+        return;
+    }
 
-//     console.log("File Content:", data);
+    console.log("File Content:", data);
 
-// });
+});
 
-// //Error-first callback function
-// function divide(a, b, callback) {
+//Error-first callback function
+function divide(a, b, callback) {
 
-//     if (b === 0) {
-//         return callback(new Error("Cannot divide by zero"));
-//     }
+    if (b === 0) {
+        return callback(new Error("Cannot divide by zero"));
+    }
 
-//     const result = a / b;
+    const result = a / b;
 
-//     callback(null, result);
-// }
+    callback(null, result);
+}
 
-// divide(10, 2, (err, result) => {
+divide(10, 2, (err, result) => {
 
-//     if (err) {
-//         console.log(err.message);
-//         return;
-//     }
+    if (err) {
+        console.log(err.message);
+        return;
+    }
 
-//     console.log(result);
-// });
+    console.log(result);
+});
 
-// // division by zero
-// divide(10, 0, (err, result) => {
-//     if (err) {
-//         console.log(err.message);
-//         return;
-//     }
+// division by zero
+divide(10, 0, (err, result) => {
+    if (err) {
+        console.log(err.message);
+        return;
+    }
 
-//     console.log(result);
-// });
+    console.log(result);
+});
 
-// //============================================================
+//============================================================
 
 //Express.js
 const express = require("express");

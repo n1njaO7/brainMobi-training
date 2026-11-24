@@ -33,32 +33,51 @@
 
 // //=======================================================
 
-//setImmediate()
+// //setImmediate()
+// console.log("Start");
+
+// setImmediate(() => {
+//     console.log("Immediate callback");
+// });
+
+// console.log("End");
+
+// //setImmediate() vs setTimeout()
+// setTimeout(() => {
+//     console.log("Timeout");
+// }, 0);
+
+// setImmediate(() => {
+//     console.log("Immediate");
+// });
+
+// const fs = require("fs");
+
+// fs.readFile(__filename, () => {
+//     setTimeout(() => {
+//         console.log("Timeout");
+//     }, 0);
+
+//     setImmediate(() => {
+//         console.log("Immediate");
+//     });
+// });
+
+// //=========================================================
+
+//process.nextTick()
 console.log("Start");
 
-setImmediate(() => {
-    console.log("Immediate callback");
+process.nextTick(() => {
+    console.log("Next Tick");
 });
 
 console.log("End");
 
-//setImmediate() vs setTimeout()
-setTimeout(() => {
-    console.log("Timeout");
-}, 0);
-
-setImmediate(() => {
-    console.log("Immediate");
-});
-
-const fs = require("fs");
-
-fs.readFile(__filename, () => {
-    setTimeout(() => {
-        console.log("Timeout");
-    }, 0);
-
-    setImmediate(() => {
-        console.log("Immediate");
+function recursiveTask() {
+    process.nextTick(() => {
+        console.log("Next tick");
+        recursiveTask();
     });
-});
+}
+recursiveTask();

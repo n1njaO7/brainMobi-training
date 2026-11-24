@@ -85,48 +85,72 @@
 
 // //=================================================================
 
-//Error-first callback
-const fs = require("fs");
+// //Error-first callback
+// const fs = require("fs");
 
-fs.readFile("data.txt", "utf8", (err, data) => {
+// fs.readFile("data.txt", "utf8", (err, data) => {
 
-    if (err) {
-        console.error("Error:", err.message);
-        return;
-    }
+//     if (err) {
+//         console.error("Error:", err.message);
+//         return;
+//     }
 
-    console.log("File Content:", data);
+//     console.log("File Content:", data);
 
+// });
+
+// //Error-first callback function
+// function divide(a, b, callback) {
+
+//     if (b === 0) {
+//         return callback(new Error("Cannot divide by zero"));
+//     }
+
+//     const result = a / b;
+
+//     callback(null, result);
+// }
+
+// divide(10, 2, (err, result) => {
+
+//     if (err) {
+//         console.log(err.message);
+//         return;
+//     }
+
+//     console.log(result);
+// });
+
+// // division by zero
+// divide(10, 0, (err, result) => {
+//     if (err) {
+//         console.log(err.message);
+//         return;
+//     }
+
+//     console.log(result);
+// });
+
+// //============================================================
+
+//Express.js
+const express = require("express");
+
+const app = express();
+
+app.get("/", (req, res) => {
+    res.send("Welcome Home");
 });
 
-//Error-first callback function
-function divide(a, b, callback) {
-
-    if (b === 0) {
-        return callback(new Error("Cannot divide by zero"));
-    }
-
-    const result = a / b;
-
-    callback(null, result);
-}
-
-divide(10, 2, (err, result) => {
-
-    if (err) {
-        console.log(err.message);
-        return;
-    }
-
-    console.log(result);
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
 });
 
-// division by zero
-divide(10, 0, (err, result) => {
-    if (err) {
-        console.log(err.message);
-        return;
+//without using express.js
+const http = require("http");
+const server = http.createServer((req, res) => {
+    if (req.url === "/") {
+        res.end("Welcome Home");
     }
-
-    console.log(result);
 });
+server.listen(3000);

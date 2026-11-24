@@ -65,19 +65,68 @@
 
 // //=========================================================
 
-//process.nextTick()
-console.log("Start");
+// //process.nextTick()
+// console.log("Start");
 
-process.nextTick(() => {
-    console.log("Next Tick");
+// process.nextTick(() => {
+//     console.log("Next Tick");
+// });
+
+// console.log("End");
+
+// function recursiveTask() {
+//     process.nextTick(() => {
+//         console.log("Next tick");
+//         recursiveTask();
+//     });
+// }
+// recursiveTask();
+
+
+// //=================================================================
+
+//Error-first callback
+const fs = require("fs");
+
+fs.readFile("data.txt", "utf8", (err, data) => {
+
+    if (err) {
+        console.error("Error:", err.message);
+        return;
+    }
+
+    console.log("File Content:", data);
+
 });
 
-console.log("End");
+//Error-first callback function
+function divide(a, b, callback) {
 
-function recursiveTask() {
-    process.nextTick(() => {
-        console.log("Next tick");
-        recursiveTask();
-    });
+    if (b === 0) {
+        return callback(new Error("Cannot divide by zero"));
+    }
+
+    const result = a / b;
+
+    callback(null, result);
 }
-recursiveTask();
+
+divide(10, 2, (err, result) => {
+
+    if (err) {
+        console.log(err.message);
+        return;
+    }
+
+    console.log(result);
+});
+
+// division by zero
+divide(10, 0, (err, result) => {
+    if (err) {
+        console.log(err.message);
+        return;
+    }
+
+    console.log(result);
+});

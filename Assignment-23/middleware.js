@@ -104,3 +104,47 @@ app.get("/api/users", (req, res) => {
 app.listen(3000, () => {
     console.log("Server running on port 3000");
 });
+
+
+//==============================================================
+
+//Router-level middleware
+const express = require('express');
+const app = express();
+const router = express.Router();
+
+// 1. Runs for every request coming to this router
+router.use((req, res, next) => {
+    console.log('Request received at:', new Date());
+    next();
+});
+
+// 2. Runs for all HTTP methods on /user/:id
+router.use('/user/:id', (req, res, next) => {
+    console.log('Requested URL:', req.originalUrl);
+    console.log('HTTP Method:', req.method);
+    next();
+});
+
+// 3. Handles GET requests for /user/:id
+router.get('/user/:id', (req, res, next) => {
+
+    if (req.params.id === '0') {
+        // Skip the remaining handlers of this route
+        return next('route');
+    }
+
+    res.send(`Welcome to User ${req.params.id}'s profile`);
+});
+
+// 4. Handles the special user route
+router.get('/user/:id', (req, res) => {
+    res.send('Welcome to the Special User Profile');
+});
+
+// 5. Mount router on the main application
+app.use('/', router);
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});

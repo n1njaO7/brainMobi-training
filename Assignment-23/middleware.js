@@ -56,3 +56,51 @@ app.listen(3000, () => {
     console.log(`Server running on port 3000`);
 });
 
+//======================================================================
+
+//Application Level Middleware
+const express = require("express");
+
+const app = express();
+
+// Global application-level middleware
+app.use((req, res, next) => {
+
+    console.log("Request received:", req.method, req.url);
+
+    req.startTime = Date.now();
+
+    next();
+});
+
+// Middleware for a specific path
+app.use("/api", (req, res, next) => {
+
+    console.log("API request detected");
+
+    next();
+});
+
+// Home route
+app.get("/", (req, res) => {
+
+    res.json({
+        message: "Home page",
+        processingStartedAt: req.startTime
+    });
+
+});
+
+// Middleware for a specific HTTP method and path
+app.get("/api/users", (req, res) => {
+
+    res.json({
+        message: "Users retrieved",
+        processingStartedAt: req.startTime
+    });
+
+});
+
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});

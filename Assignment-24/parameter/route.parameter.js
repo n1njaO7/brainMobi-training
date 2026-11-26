@@ -1,6 +1,7 @@
 const express = require ("express");
 const app = express();
 
+
 app.get("/users/:id", (req, res) => {
     const userId = req.params.id;
     res.json({
@@ -9,6 +10,7 @@ app.get("/users/:id", (req, res) => {
     });
 });
 
+//Multiple route parameters
 app.get("/users/:userId/orders/:orderId", (req, res) => {
     const userId = req.params.userId;
     const orderId = req.params.orderId;

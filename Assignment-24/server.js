@@ -17,8 +17,40 @@ app.use(cors({
     origin: "http://localhost:5173"
 }));
 
+// Allow requests from React Vite frontend
+app.use(cors({
+    origin: "http://localhost:5173"
+}));
+
 // Add security-related HTTP headers
-app.use(helmet());
+app.use(helmet({
+
+    // Restrict resource loading sources
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'"],
+            styleSrc: ["'self'"],
+            imgSrc: ["'self'", "data:"]
+        }
+    },
+
+    // Prevent MIME-type sniffing
+    xContentTypeOptions: true,
+
+    // Prevent the website from being embedded in iframes
+    xFrameOptions: {
+        action: "deny"
+    },
+
+    // Enforce HTTPS for one year
+    strictTransportSecurity: {
+        maxAge: 31536000,
+        includeSubDomains: true
+    }
+
+}));
+
 
 // Built-in middleware
 app.use(express.json());

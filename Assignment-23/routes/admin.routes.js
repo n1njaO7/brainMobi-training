@@ -2,30 +2,30 @@ const express = require("express");
 
 const router = express.Router();
 
-// GET all users
+// GET all admins
 router.get("/", (req, res) => {
     res.status(200).json({
-        message: "All users retrieved successfully"
+        message: "All admins retrieved successfully"
     });
 });
 
-// GET a single user
+// GET a single admin
 router.get("/:id", (req, res) => {
-    const userId = req.params.id;
+    const adminId = req.params.id;
 
     res.status(200).json({
-        message: "User retrieved successfully",
-        userId
+        message: "Admin retrieved successfully",
+        adminId
     });
 });
 
-// POST a new user
+// POST a new admin
 router.post("/", (req, res) => {
     const { name, email } = req.body;
 
     res.status(201).json({
-        message: "User created successfully",
-        user: { name, email }
+        message: "Admin created successfully",
+        admin: { name, email }
     });
 });
 

@@ -13,6 +13,15 @@ router.post("/", (req, res) => {
     // Read a request header
     const userAgent = req.get("user-agent");
 
+    // Get original request URL, including query string
+    const originalUrl = req.originalUrl;
+
+    // Get route parameters
+    const userId = req.params.id;
+
+    // Get query parameters
+    const { role, status } = req.query;
+
     // Validate input
     if (!name || !email) {
 
@@ -35,7 +44,15 @@ router.post("/", (req, res) => {
 
         requestInfo: {
             method,
-            userAgent
+            userAgent,
+            originalUrl,
+            params: {
+                userId
+            },
+            query: {
+                role,
+                status
+            }
         }
     });
 
